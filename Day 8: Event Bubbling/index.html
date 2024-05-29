@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Event Bubbling Example</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+
+  <div class="flex">
+
+    <div>
+      <p>Event Bubbling</p>
+      <div id="outer" class="box">
+        Outer
+        <div id="middle" class="box">
+          Middle
+          <div id="inner" class="box">Inner</div>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <p>Event capturing</p>
+      <div id="outer1" class="box">
+        Outer
+        <div id="middle1" class="box">
+          Middle
+          <div id="inner1" class="box">Inner</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  
+  <div class="">
+    <p>Check the console to see the event propagation.</p>
+  </div>
+  <script src="script.js"></script>
+</body>
+
+</html>
