@@ -1,18 +1,23 @@
-import React, { useState, useEffect } from 'react';
-import useDebounce from '../hooks/useDebounce';
+import React, { useState, useEffect } from "react";
+import useDebounce from "../hooks/useDebounce";
 
 const SearchBar = () => {
-  const [searchTerm, setSearchTerm] = useState('');
+  const [searchTerm, setSearchTerm] = useState("");
   // Debounce delay of 1000 milliseconds
-  const debouncedSearchTerm = useDebounce(searchTerm, 1000); 
+  const debouncedSearchTerm = useDebounce(searchTerm, 1000);
+  const [requests, setRequests] = useState([]);
+  const [debouncedRequest, setDebouncedRequest] = useState([]);
+
 
   const handleChange = (e) => {
     setSearchTerm(e.target.value);
+    setRequests((prevRequests) => [...prevRequests, e.target.value]);
   };
 
   // Simulated API call function
   const fetchSearchResults = (searchTerm) => {
-    console.log('Fetching results for:', searchTerm);
+    console.log("Fetching results for:", searchTerm);
+    setDebouncedRequest((prevRequests) => [...prevRequests, searchTerm]);
     // Perform actual API call here...
   };
 
@@ -31,8 +36,36 @@ const SearchBar = () => {
         value={searchTerm}
         onChange={handleChange}
       />
-      <p>Search term: {searchTerm}</p>
-      <p>Debounced search term: {debouncedSearchTerm}</p>
+      <div style={{ display: "flex", gap: "100px" }}>
+        <div>
+          <p>Without debounce: {searchTerm}</p>
+          <ul>
+            <li
+              style={{
+                listStyleType: "none",
+              }}
+            >
+              {requests.map((request, index) => (
+                <p key={index}>Api request for {request}</p>
+              ))}
+            </li>
+          </ul>
+        </div>
+        <div>
+          <p>With debounce: {debouncedSearchTerm}</p>
+          <ul>
+            <li
+              style={{
+                listStyleType: "none",
+              }}
+            >
+              {debouncedRequest.map((request, index) => (
+                <p key={index}>Api request for {request}</p>
+              ))}
+            </li>
+          </ul>
+        </div>
+      </div>
     </div>
   );
 };
