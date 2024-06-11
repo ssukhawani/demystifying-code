@@ -1,13 +1,12 @@
-import React from 'react'
 import './App.css'
-import ThrottleButton from './components/ThrottleButton'
+import ThrottleScrollDemo from './components/ThrottleScrollDemo'
 
 function App() {
 
   return (
     <div className="App">
-      <h1>Throttling Demo</h1>
-      <ThrottleButton />
+      <h1 className='sticky-header'>Throttling Demo</h1>
+      <ThrottleScrollDemo />
     </div>
   )
 }
