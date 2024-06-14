@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Async vs Defer Demo</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .container {
+      display: flex;
+      justify-content: space-around;
+      width: 100%;
+      margin-top: 20px;
+    }
+    .box {
+      border: 2px solid #000;
+      border-radius: 5px;
+      padding: 10px;
+      width: 40%;
+      text-align: center;
+    }
+    .message {
+      margin: 5px 0;
+      padding: 5px;
+      border: 1px solid #000;
+      border-radius: 3px;
+      opacity: 0;
+      animation: fadeIn 1s forwards;
+    }
+    @keyframes fadeIn {
+      to {
+        opacity: 1;
+      }
+    }
+  </style>
+</head>
+<body>
+  <h1>Async vs Defer Demo</h1>
+  <div class="container">
+    <div class="box" id="async-box">
+      <h2>Async</h2>
+      <div id="async-result"></div>
+    </div>
+    <div class="box" id="defer-box">
+      <h2>Defer</h2>
+      <div id="defer-result"></div>
+    </div>
+  </div>
+
+  <!-- Initial script to indicate HTML parsing starts -->
+  <script>
+    console.log('HTML parsing starts');
+    document.getElementById('async-result').innerHTML += '<div class="message">HTML Parsing Started</div>';
+    document.getElementById('defer-result').innerHTML += '<div class="message">HTML Parsing Started</div>';
+  </script>
+
+  <!-- Async Scripts -->
+  <script>
+    performance.mark('async1-start-download');
+  </script>
+  <script src="async1.js" async></script>
+  
+  <script>
+    performance.mark('async2-start-download');
+  </script>
+  <script src="async2.js" async></script>
+
+  <!-- Defer Scripts -->
+  <script>
+    performance.mark('defer1-start-download');
+  </script>
+  <script src="defer1.js" defer></script>
+  
+  <script>
+    performance.mark('defer2-start-download');
+  </script>
+  <script src="defer2.js" defer></script>
+
+  <!-- Script to indicate HTML parsing completion -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      console.log('HTML parsing completed');
+      document.getElementById('async-result').innerHTML += '<div class="message">HTML Parsing Completed</div>';
+      document.getElementById('defer-result').innerHTML += '<div class="message">HTML Parsing Completed</div>';
+    });
+  </script>
+</body>
+</html>
